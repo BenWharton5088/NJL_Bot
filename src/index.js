@@ -51,10 +51,22 @@ app.http("registerCommands", {
   authLevel: "anonymous",
   route: "bot/register-commands",
   handler: async (_request, context) => {
-    const token = await getSecret("discord-bot-token");
-    const commands = await registerGuildCommands({ ...getDiscordConfig(), token });
-    context.log(`Registered ${commands.length} Discord guild commands.`);
-    return { status: 200, jsonBody: { commands } };
+    try {
+      const token = await getSecret("discord-bot-token");
+      const commands = await registerGuildCommands({ ...getDiscordConfig(), token });
+      context.log(`Registered ${commands.length} Discord guild commands.`);
+      return { status: 200, jsonBody: { commands } };
+    } catch (error) {
+      context.error(`Command registration failed: ${error.message}`);
+      return {
+        status: 500,
+        jsonBody: {
+          error: error.message,
+          code: error.code || null,
+          statusCode: error.statusCode || null,
+        },
+      };
+    }
   },
 });
 
