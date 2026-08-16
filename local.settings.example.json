@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "KEY_VAULT_URL": "https://kv-national-josh-bot.vault.azure.net/",
+    "DISCORD_APPLICATION_ID": "",
+    "DISCORD_PUBLIC_KEY": "",
+    "DISCORD_GUILD_ID": "",
+    "SLEEPER_LEAGUE_ID": "1391910860976328704",
+    "SLEEPER_DISCORD_USER_MAP": "{}",
+    "WEBSITE_TIME_ZONE": "Central Standard Time"
+  }
+}
