@@ -48,7 +48,7 @@ app.http("manualRoleSync", {
 
 app.http("registerCommands", {
   methods: ["POST"],
-  authLevel: "function",
+  authLevel: "anonymous",
   route: "admin/register-commands",
   handler: async (_request, context) => {
     const token = await getSecret("discord-bot-token");
