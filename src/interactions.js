@@ -34,7 +34,6 @@ export function handleInteraction(interaction) {
       type: 4,
       data: {
         content: sportsmanshipMessage(senderId, targetId),
-        allowed_mentions: { parse: [], users: [senderId, targetId] },
       },
     };
   }
@@ -44,7 +43,6 @@ export function handleInteraction(interaction) {
       type: 4,
       data: {
         content: unsportsmanlikeMessage(senderId, targetId),
-        allowed_mentions: { parse: [], users: [senderId, targetId] },
       },
     };
   }

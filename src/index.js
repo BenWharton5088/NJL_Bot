@@ -19,7 +19,12 @@ app.http("discordInteractions", {
       return { status: 401, jsonBody: { error: "Invalid request signature" } };
     }
 
-    return { status: 200, jsonBody: handleInteraction(JSON.parse(rawBody)) };
+    const response = handleInteraction(JSON.parse(rawBody));
+    return {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(response),
+    };
   },
 });
 
