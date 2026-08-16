@@ -48,7 +48,7 @@ app.http("manualRoleSync", {
 
 app.http("registerCommands", {
   methods: ["POST"],
-  authLevel: "anonymous",
+  authLevel: "function",
   route: "bot/register-commands",
   handler: async (_request, context) => {
     try {
