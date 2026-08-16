@@ -29,3 +29,4 @@ The bot needs **Manage Roles**, and its bot role must be above all five cosmetic
 
 - `POST /api/discord/interactions` — Discord Interactions Endpoint URL.
 - `POST /api/admin/sync-roles` — manual role sync protected by a Function key.
+- `POST /api/admin/register-commands` — registers both guild commands and is protected by a Function key.

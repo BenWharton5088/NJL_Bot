@@ -24,3 +24,10 @@ export function getInteractionConfig() {
     publicKey: required("DISCORD_PUBLIC_KEY"),
   };
 }
+
+export function getDiscordConfig() {
+  return {
+    applicationId: required("DISCORD_APPLICATION_ID"),
+    guildId: required("DISCORD_GUILD_ID"),
+  };
+}

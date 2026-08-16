@@ -1,5 +1,6 @@
 import { app } from "@azure/functions";
-import { getInteractionConfig, getRoleSyncConfig } from "./config.js";
+import { registerGuildCommands } from "./commands.js";
+import { getDiscordConfig, getInteractionConfig, getRoleSyncConfig } from "./config.js";
 import { handleInteraction, verifyDiscordRequest } from "./interactions.js";
 import { syncStandingsRoles } from "./role-sync.js";
 import { getSecret } from "./secrets.js";
@@ -42,5 +43,17 @@ app.http("manualRoleSync", {
   handler: async (_request, context) => {
     const results = await runRoleSync(context);
     return { status: 200, jsonBody: { results } };
+  },
+});
+
+app.http("registerCommands", {
+  methods: ["POST"],
+  authLevel: "function",
+  route: "admin/register-commands",
+  handler: async (_request, context) => {
+    const token = await getSecret("discord-bot-token");
+    const commands = await registerGuildCommands({ ...getDiscordConfig(), token });
+    context.log(`Registered ${commands.length} Discord guild commands.`);
+    return { status: 200, jsonBody: { commands } };
   },
 });
