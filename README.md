@@ -6,6 +6,7 @@ Azure Functions app for the National Josh League Discord server.
 
 - Verifies Discord interaction signatures.
 - Provides `/sportsmanship person` and `/unsportsmanlike person` commands.
+- Registers both commands automatically when the Function App starts.
 - Synchronizes `Try Hard`, `Average`, `Last Place`, `Playoffs`, and `Washed` roles every Tuesday at 10:00 AM Central time.
 - Reads the Discord bot token from Azure Key Vault through managed identity.
 

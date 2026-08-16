@@ -57,3 +57,13 @@ app.http("registerCommands", {
     return { status: 200, jsonBody: { commands } };
   },
 });
+
+app.timer("registerCommandsOnStartup", {
+  schedule: "0 0 3 1 * *",
+  runOnStartup: true,
+  handler: async (_timer, context) => {
+    const token = await getSecret("discord-bot-token");
+    const commands = await registerGuildCommands({ ...getDiscordConfig(), token });
+    context.log(`Registered ${commands.length} Discord guild commands on startup.`);
+  },
+});
