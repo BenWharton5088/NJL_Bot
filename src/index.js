@@ -39,7 +39,7 @@ app.timer("weeklyRoleSync", {
 app.http("manualRoleSync", {
   methods: ["POST"],
   authLevel: "function",
-  route: "admin/sync-roles",
+  route: "bot/sync-roles",
   handler: async (_request, context) => {
     const results = await runRoleSync(context);
     return { status: 200, jsonBody: { results } };
@@ -49,7 +49,7 @@ app.http("manualRoleSync", {
 app.http("registerCommands", {
   methods: ["POST"],
   authLevel: "anonymous",
-  route: "admin/register-commands",
+  route: "bot/register-commands",
   handler: async (_request, context) => {
     const token = await getSecret("discord-bot-token");
     const commands = await registerGuildCommands({ ...getDiscordConfig(), token });
