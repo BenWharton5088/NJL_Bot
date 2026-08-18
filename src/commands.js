@@ -1,13 +1,13 @@
 export const guildCommands = [
   {
     name: "sportsmanship",
-    description: "Give a league member an aggressively cringe compliment",
+    description: "Be nice to somebody.",
     options: [{ type: 6, name: "person", description: "Member to compliment", required: true }],
   },
   {
     name: "unsportsmanlike",
-    description: "Give a league member a fantasy-football violation",
-    options: [{ type: 6, name: "person", description: "Member to roast", required: true }],
+    description: ">=(",
+    options: [{ type: 6, name: "person", description: "Member to be mean to", required: true }],
   },
 ];
 
