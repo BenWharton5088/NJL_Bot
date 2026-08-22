@@ -29,9 +29,19 @@ app.http("discordInteractions", {
 });
 
 async function runRoleSync(context) {
+  context.log("Role sync: loading configuration.");
   const config = getRoleSyncConfig();
+  context.log(`Role sync: configuration loaded for league ${config.leagueId}, guild ${config.guildId}, and ${Object.keys(config.userMap).length} mapped users.`);
+  context.log("Role sync: loading the Discord bot token from Key Vault.");
   const token = await getSecret("discord-bot-token");
-  return syncStandingsRoles({ ...config, token, log: context.log.bind(context) });
+  context.log("Role sync: token loaded; fetching Sleeper standings and Discord roles.");
+  const results = await syncStandingsRoles({ ...config, token, log: context.log.bind(context) });
+  const counts = results.reduce((summary, result) => {
+    summary[result.status] = (summary[result.status] || 0) + 1;
+    return summary;
+  }, {});
+  context.log(`Role sync: completed with status counts ${JSON.stringify(counts)}.`);
+  return results;
 }
 
 app.timer("weeklyRoleSync", {
@@ -46,8 +56,21 @@ app.http("manualRoleSync", {
   authLevel: "function",
   route: "bot/sync-roles",
   handler: async (_request, context) => {
-    const results = await runRoleSync(context);
-    return { status: 200, jsonBody: { results } };
+    try {
+      const results = await runRoleSync(context);
+      return { status: 200, jsonBody: { results } };
+    } catch (error) {
+      context.error(`Role sync failed: ${error.message}`);
+      context.error(error.stack || String(error));
+      return {
+        status: 500,
+        jsonBody: {
+          error: error.message,
+          code: error.code || null,
+          statusCode: error.statusCode || null,
+        },
+      };
+    }
   },
 });
 

@@ -25,6 +25,7 @@ export function desiredRoleNames(rank, totalTeams, playoffTeams) {
 }
 
 export async function syncStandingsRoles({ guildId, leagueId, userMap, token, log }) {
+  log?.("Role sync: requesting Sleeper standings and Discord guild roles.");
   const [{ standings, playoffTeams }, guildRoles] = await Promise.all([
     getLeagueStandings(leagueId),
     getGuildRoles(guildId, token),
@@ -35,6 +36,7 @@ export async function syncStandingsRoles({ guildId, leagueId, userMap, token, lo
   if (missingRoles.length) {
     throw new Error(`Missing Discord cosmetic roles: ${missingRoles.join(", ")}`);
   }
+  log?.(`Role sync: found all ${COSMETIC_ROLE_NAMES.length} managed Discord roles and ${standings.length} Sleeper rosters.`);
 
   const cosmeticRoleIds = new Set(COSMETIC_ROLE_NAMES.map((name) => rolesByName.get(name)));
   const results = [];
@@ -45,12 +47,14 @@ export async function syncStandingsRoles({ guildId, leagueId, userMap, token, lo
     const discordUserId = userMap[roster.owner_id];
 
     if (!discordUserId) {
+      log?.(`Role sync: no Discord mapping for Sleeper owner ${roster.owner_id} at rank ${rank}; skipping.`);
       results.push({ sleeperUserId: roster.owner_id, rank, status: "missing-user-map" });
       continue;
     }
 
     const desiredNames = desiredRoleNames(rank, standings.length, playoffTeams);
     const desiredIds = new Set(desiredNames.map((name) => rolesByName.get(name)));
+    log?.(`Role sync: reconciling mapped member ${discordUserId} at rank ${rank}.`);
     const member = await getGuildMember(guildId, discordUserId, token);
     const currentCosmeticIds = member.roles.filter((roleId) => cosmeticRoleIds.has(roleId));
 
