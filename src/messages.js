@@ -4,6 +4,11 @@ const compliments = [
   "Love ya.",
   "My love poureth over into green, baby.",
   "Keep trying!",
+  "Better luck next time",
+  "Good game",
+  "Looking great, bud.",
+  "Its a long season, you'll get them next time",
+  "At least you are giving it your best :)"
 ];
 
 const insults = [
@@ -12,6 +17,9 @@ const insults = [
   "Get bent, punk.",
   "Hope you have a great weekend.",
   "Get fucked idiot.",
+  "Cry me a river",
+  "Looks like somebody forgot to brush their hair this morning",
+  "get a room"
 ];
 
 function randomItem(items) {
