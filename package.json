@@ -14,5 +14,8 @@
     "@azure/identity": "^4.13.0",
     "@azure/keyvault-secrets": "^4.10.0",
     "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }

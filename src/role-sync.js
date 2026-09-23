@@ -8,7 +8,6 @@ import { getLeagueStandings } from "./sleeper.js";
 
 export const COSMETIC_ROLE_NAMES = [
   "Try Hard",
-  "Average",
   "Last Place",
   "Playoffs",
   "Washed",
@@ -17,9 +16,8 @@ export const COSMETIC_ROLE_NAMES = [
 export function desiredRoleNames(rank, totalTeams, playoffTeams) {
   const standingRole = rank === 1
     ? "Try Hard"
-    : rank === totalTeams
-      ? "Last Place"
-      : "Average";
+    : rank === 10
+    ? "Last Place" : null;
   const playoffRole = rank <= playoffTeams ? "Playoffs" : "Washed";
   return [standingRole, playoffRole];
 }
