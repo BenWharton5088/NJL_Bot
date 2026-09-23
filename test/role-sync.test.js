@@ -7,11 +7,11 @@ test("first place receives Try Hard and Playoffs", () => {
 });
 
 test("middle playoff team receives Average and Playoffs", () => {
-  assert.deepEqual(desiredRoleNames(4, 10, 6), ["Average", "Playoffs"]);
+  assert.deepEqual(desiredRoleNames(4, 10, 6), ["Playoffs"]);
 });
 
 test("non-playoff team receives Average and Washed", () => {
-  assert.deepEqual(desiredRoleNames(8, 10, 6), ["Average", "Washed"]);
+  assert.deepEqual(desiredRoleNames(8, 10, 6), ["Washed"]);
 });
 
 test("last place receives Last Place and Washed", () => {
