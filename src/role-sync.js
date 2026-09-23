@@ -14,12 +14,16 @@ export const COSMETIC_ROLE_NAMES = [
 ];
 
 export function desiredRoleNames(rank, totalTeams, playoffTeams) {
-  const standingRole = rank === 1
-    ? "Try Hard"
-    : rank === 10
-    ? "Last Place" : null;
-  const playoffRole = rank <= playoffTeams ? "Playoffs" : "Washed";
-  return [standingRole, playoffRole].filter(Boolean);
+  const roles = []
+  if (rank === 1) {
+    roles.push("Try Hard")
+  }
+  else if (rank === totalTeams){
+    roles.push("Last Place")
+  };
+
+  roles.push(rank <= playoffTeams ? "Playoffs" : "Washed");
+  return roles;
 }
 
 export async function syncStandingsRoles({ guildId, leagueId, userMap, token, log }) {
