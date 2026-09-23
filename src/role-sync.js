@@ -19,7 +19,7 @@ export function desiredRoleNames(rank, totalTeams, playoffTeams) {
     : rank === 10
     ? "Last Place" : null;
   const playoffRole = rank <= playoffTeams ? "Playoffs" : "Washed";
-  return [standingRole, playoffRole];
+  return [standingRole, playoffRole].filter(Boolean);
 }
 
 export async function syncStandingsRoles({ guildId, leagueId, userMap, token, log }) {
